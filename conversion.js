@@ -79,3 +79,4 @@ console.log(str + bl); // строка + булеан = wordtrue
 console.log(und + bl); // андефайнд + булеан = NaN (число)
 console.log(typeof (und + bl)); // число
 console.log(und +1);
+console.log("Git TEST");
