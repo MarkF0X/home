@@ -20,5 +20,5 @@ TGBook.add('Max', 132132);
 console.log(TGBook.list['Max']);
 TGBook.log();
 TGBook.delete('Max');
-console.log(TGBook.list['Max']);
+console.log('Ksu V' in TGBook.list);
 TGBook.log();
