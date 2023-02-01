@@ -4,21 +4,24 @@ const TGBook = {
         'Ksu V': 321321,
         'Ant M': 231231
     },
-    add(name, number) {
+    add(name, number) { // метод добавления контактов
         this.list[name] = number;
     },
-    delete(name) {
+    delete(name) { // метод удаления контактов
         delete this.list[name];
     },
-    log() {
+    log() { // метод просмотра всех контактов №1
         console.log(this.list)
+    },
+    view() {
+        for (const name in TGBook.list) {
+            console.log(name + ' ' + TGBook.list[name]);
+            // console.log(TGBook.list[name]);
+        }
     }
 };
 
 
 TGBook.add('Max', 132132);
-console.log(TGBook.list['Max']);
-TGBook.log();
-TGBook.delete('Max');
-console.log('Ksu V' in TGBook.list);
-TGBook.log();
+
+TGBook.view();
