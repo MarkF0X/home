@@ -8,12 +8,42 @@ const ToDo = {
         if (this.taskList) {
             let globalToDoStatus = 0;
             let checkTask = 0;
+            let i = 0;
+            console.log('To Do:');
             for (const name in ToDo.taskList) {
-                console.log(name + ' ' + ToDo.taskList[name]);
-                checkTask = checkTask + 1;
-                if (ToDo.taskList[name] === 'Done') {
-                    globalToDoStatus = globalToDoStatus + 1;
+                if (ToDo.taskList[name] === 'To Do') {
+                    i = i + 1;
+                    checkTask = checkTask + 1;
+                    console.log('   ' + name);
                 }
+            }
+            if (i === 0) {
+                console.log('-')
+            }
+            console.log('In progress:');
+            i = 0;
+            for (const name in ToDo.taskList) {
+                if (ToDo.taskList[name] === 'in progress') {
+                    i = i + 1;
+                    checkTask = checkTask + 1;
+                    console.log('   ' + name);
+                }
+            }
+            if (i === 0) {
+                console.log('-')
+            }
+            console.log('Done:');
+            i = 0;
+            for (const name in ToDo.taskList) {
+                if (ToDo.taskList[name] === 'Done') {
+                    i = i + 1;
+                    checkTask = checkTask + 1;
+                    globalToDoStatus = globalToDoStatus + 1;
+                    console.log('   ' + name);
+                }
+            }
+            if (i === 0) {
+                console.log('-')
             }
             if (globalToDoStatus === 0 && checkTask !== 0) { // проверка на наличие выполненных задач
                 console.log('');
@@ -34,7 +64,7 @@ const ToDo = {
         console.log('');
         console.log(task + ' deleted from task list!');
     },
-    deleteAllTasks() { // метод удаления всех задач
+    deleteAllTasks() { // метод удаления ВСЕХ задач
         for (const name in ToDo.taskList) {
            delete this.taskList[name];
         }
