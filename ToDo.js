@@ -6,9 +6,9 @@ const ToDo = {
     viewTaskList() { //метод просмотра задач
         console.log('');
         if (this.taskList) {
-            let globalToDoStatus = 0;
-            let checkTask = 0;
-            let i = 0;
+            let globalToDoStatus = 0; // останется нулём, если нет задач со статусом done
+            let checkTask = 0; // останется нулём, если нет незавершённых задач в списке
+            let i = 0; //
             console.log('To Do:');
             for (const name in ToDo.taskList) {
                 if (ToDo.taskList[name] === 'To Do') {
@@ -55,7 +55,7 @@ const ToDo = {
         }
     },
     addTask(task) { // метод добавления задач
-        this.taskList[task] = 'To Do';
+        this.taskList[task] = 'To Do'; // создаёт задачу сразу с валидным статусом
         console.log('');
         console.log(task + ' added to task list!');
     },
@@ -72,9 +72,26 @@ const ToDo = {
     },
     changeStatus(task, newStatus) { // метод изменения статуса задачи
         if (this.taskList[task]) { // проверка на содержание задачи в тасклисте
-            this.taskList[task] = newStatus;
-            console.log('');
-            console.log(task + ' status changed to ' + newStatus);
+            switch (newStatus) {
+                case 'To Do':
+                    this.taskList[task] = newStatus;
+                    console.log('');
+                    console.log(task + ' status changed to ' + newStatus);
+                    break;
+                case 'in progress':
+                    this.taskList[task] = newStatus;
+                    console.log('');
+                    console.log(task + ' status changed to ' + newStatus);
+                    break;
+                case 'Done':
+                    this.taskList[task] = newStatus;
+                    console.log('');
+                    console.log(task + ' status changed to ' + newStatus);
+                    break;
+                default:
+                    console.log('Invalid status!'); // проверка на правильность статуса
+                    break;
+            }
         }
         else { // сообщение, если задача не найдена
             console.log('');
@@ -88,6 +105,7 @@ ToDo.addTask('listenMusic');
 ToDo.addTask('createMethods');
 ToDo.viewTaskList();
 ToDo.changeStatus('createMethods', 'Done');
+ToDo.changeStatus('makeObj', 'Don');
 ToDo.changeStatus('makeObj', 'Done');
 ToDo.viewTaskList();
 ToDo.deleteTask('listenMusic');
