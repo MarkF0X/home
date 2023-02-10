@@ -118,8 +118,6 @@ viewTasksList();
 // viewDoneTasks();
 addTask('add task', 'in progress', 'low');
 viewTasksList();
-// delTask('test1');
-viewTasksList();
 addTask('make dinner', 'todo', 'high');
 addTask('open window', 'todo', 'high');
 viewTasksList();
