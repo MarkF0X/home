@@ -4,61 +4,30 @@ const ToDo = [
     {name: 'test1', status: 'todo', priority: 'high'}
 ]
 
-function filterHighPriority() { // сортировка задач с высоким приоритетом
-    const highToDo = ToDo.filter(priority => priority.priority === 'high');
-    const hTDtodo = highToDo.filter(stat => stat.status === 'todo');
-    const hTDinProgress = highToDo.filter(stat => stat.status === 'in progress');
-    const generalHigh = hTDtodo.concat(hTDinProgress);
-    let i = 0;
-    for (const task of generalHigh) { // итерирование массива без индексов с использованием цикла фор оф
-        i = i + 1;
-    }
-    if (i === 0) {
-        return 1;
-    }
-    else {
-        return generalHigh;
-    }
-} // фильтр задач с высоким приоритетом
+function filterWithPriority(priority) { // сортировка с выбранным приоритетом исключая выполненые задачи
+    return ToDo.filter(
+        task => task.priority === priority && task.status !== 'done'
+    );
 
-function filterLowPriority() { // сортировка задач с низким приоритетом
-    const lowToDo = ToDo.filter(priority => priority.priority === 'low');
-    const lTDtodo = lowToDo.filter(stat => stat.status === 'todo');
-    const lTDinProgress = lowToDo.filter(stat => stat.status === 'in progress');
-    const generalLow = lTDtodo.concat(lTDinProgress);
-    let i = 0;
-    for (const task of generalLow) { // итерирование массива без индексов с использованием цикла фор оф
-        i = i + 1;
-    }
-    if (i === 0) {
-        return 1;
+} // сортировка с выбранным приоритетом исключая выполненые задачи
+
+function writeInConsoleTasks(tasks, priority) {
+    console.log(`\n ${priority} priority tasks:`);
+    if (tasks.length) {
+        for (const task of tasks) {
+            if (task.status !== 'done')
+                console.log(`   ${task.name} ${task.status}`);
+        }
     }
     else {
-        return generalLow;
+        console.log(`   -`);
     }
-} // фильтр задач с низким приоритетом
+}// вывод списка задач в консоль
 function viewTasksList() { // функция просмотра не сделанных задач
-    if (filterHighPriority() !== 1) {
-        console.log(`\nHigh priority tasks:`);
-        for (const task of filterHighPriority()) {
-            if (task.status !== 'done')
-                console.log(`   ${task.name} ${task.status}`);
-        }
-    }
-    else if (filterHighPriority() === 1) {
-        console.log(`\nHigh priority tasks:\n   -`);
-    }
-    if (filterLowPriority() !== 1) {
-        console.log(`\nLow priority tasks:`);
-        for (const task of filterLowPriority()) {
-            if (task.status !== 'done')
-                console.log(`   ${task.name} ${task.status}`);
-        }
-    }
-    else if (filterLowPriority() === 1) {
-        console.log(`\nLow priority tasks:\n   -`);
-    }
-    return 1;
+    const highPriorityTasks = filterWithPriority('high');
+    writeInConsoleTasks(highPriorityTasks, 'high');
+    const lowPriorityTasks = filterWithPriority('low');
+    writeInConsoleTasks(lowPriorityTasks, 'low');
 } // просмотр не завершённых задач
 
 function viewDoneTasks () {
@@ -67,17 +36,18 @@ function viewDoneTasks () {
         if (task.status === 'done')
             console.log(`   ${task.name}`);
     }
-    return 1;
 } // просмотр завершённых задач
 
-function addTask(task1, status1, priority1) { // добавление задачи
-    if ((status1 === 'todo' ||
-        status1 === 'in progress' ||
-        status1 === 'done') &&
-        (priority1 === 'high' ||
-            priority1 === 'low')) {
-        ToDo.push({name: task1, status: status1, priority: priority1});
-        console.log(`\n${task1} added to tasks list!`)
+function checkRightArguments(status, priority) {
+    const rightStatus = ['todo', 'in progress', 'done'];
+    const rightPriority = ['high', 'low'];
+    return (rightStatus.findIndex(status1 => status1 === status) !== -1)  && (rightPriority.findIndex(priority1 => priority1 === priority) !== -1);
+} // проверка правильности введёных статуса и приоритета
+function addTask(task, status, priority) { // добавление задачи
+    const checkArgument = checkRightArguments(status, priority)
+    if (checkArgument) {
+        ToDo.push({name: task, status: status, priority: priority});
+        console.log(`\n${task} added to tasks list!`);
     }
     else {
         console.log('\nInvalid arguments. Retry');
@@ -86,36 +56,33 @@ function addTask(task1, status1, priority1) { // добавление задач
 
 function delTask(name) {
     let delTask1 = ToDo.findIndex(task => task.name === name);
+    if (delTask1 === -1) {
+        console.log(`\nTask ${name} not found!`);
+        return;
+    }
     ToDo.splice(delTask1,1);
     console.log(`\n${name} deleted!`);
 } // удаление задачи
 
-function changeTaskStatus(name, newStatus) {
-    let i = ToDo.findIndex(task => task.name === name);
-    if (i === ToDo.findIndex(task => task.name === name) && (newStatus === 'todo' || newStatus === 'in progress' || newStatus === 'done')) {
-        ToDo[i].status = newStatus;
-        console.log(`For task ${name} status changed on ${newStatus}`);
+function changeTask(name, newStatus, newPriority) {
+    const checkArgument = checkRightArguments(newStatus, newPriority);
+    if (!checkArgument) {
+        console.log('\nInvalid arguments. Retry');
+        return;
     }
-    else {
-        console.log(`Task ${name} does not exist or invalid status!`);
+    const task = ToDo.find(task => task.name === name);
+    if (!task) {
+        console.log(`Task ${name} not found!`);
+        return;
     }
-    return 1;
-} // смена статуса задачи
+    task.status = newStatus;
+    task.priority = newPriority;
+    console.log(`\nTask ${name} updated!`);
+} // обновление задачи
 
-function changeTaskPriority(name, newPriority) {
-    let i = ToDo.findIndex(task => task.name === name);
-    if (i === ToDo.findIndex(task => task.name === name) && (newPriority === 'high' || newPriority === 'low')) {
-        ToDo[i].priority = newPriority;
-        console.log(`For task ${name} priority changed on ${newPriority}`);
-    }
-    else {
-        console.log(`Task ${name} does not exist or invalid priority!`);
-    }
-    return 1;
-} //смена приоритета задачи
 
 viewTasksList();
-// viewDoneTasks();
+viewDoneTasks();
 addTask('add task', 'in progress', 'low');
 viewTasksList();
 addTask('make dinner', 'todo', 'high');
@@ -123,11 +90,11 @@ addTask('open window', 'todo', 'high');
 viewTasksList();
 delTask('test1');
 viewTasksList();
-changeTaskStatus('make dinner', 'in progress');
+changeTask('make dinner', 'in progress', 'low');
 viewTasksList();
-changeTaskStatus('make dinner', 'in progress1');
+changeTask('make dinner', 'in progress1', 'low');
 viewTasksList();
-changeTaskPriority('open window', 'low');
+changeTask('open window', 'in progress', 'low');
 viewTasksList();
-changeTaskPriority('open window', 'lov');
+changeTask('open window', 'in progress', 'lov');
 viewTasksList();
