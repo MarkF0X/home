@@ -1,4 +1,3 @@
-
 function calc () {
     let fA = Number(document.getElementById('firstArgument').value);
     let sA = Number(document.getElementById('secondArgument').value);
