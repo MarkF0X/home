@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="telo" align="center" class="govno">
+    <form name="calcUI">
+        <p><b>Калькулятор</b></p>
+        <input type="number" id="firstArgument" value="0">
+        <select id='mathOp' size="1" multiple name="action []">
+            <option value="add">+</option>
+            <option value="sub">-</option>
+            <option value="multi">*</option>
+            <option value="div">/</option>
+        </select>
+        <input type="number" id="secondArgument" value="0">
+        <button id="resButton" type="button">=</button>
+        <div id="result" size="1" >0</div> <br>
+        <div>
+            <button id="color" data-color="#ff0000" type="button">Изменить фон</button>
+        </div>
+        <div>
+            <button id="epileps" type="button">Начать дискотеку</button>
+        </div>
+        <ul id="history"></ul>
+        <script type="module" src="Calc.js"></script>
+        <script type="module" src="%2339Classes&styles.js"></script>
+        <script src="RandomFuncForCalc.js"></script>
+    </form>
+</div>
+</body>
+</html>
