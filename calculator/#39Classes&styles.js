@@ -1,25 +1,19 @@
-import {randfive} from "./RandomFuncForCalc";
+import {randfive} from "./RandomFuncForCalc.js";
 
 function changeColor() {
     const elem = document.getElementById('color');
     const newBackgroundColor = elem.getAttribute('data-color');
-    const boDiv = document.getElementById('telo');
     document.body.style.backgroundColor = newBackgroundColor;
 }
 
-function getTrash() {
-    let elementGovna = document.querySelector('.govno');
-    let styles = getComputedStyle(elementGovna);
-    console.log(styles);
-}
-getTrash();
-
-
-
 function ebatColor() {
     console.log('govna poesh')
+    if (Math.floor(Math.random() * 100) % 10 === 0) {
+        document.getElementById('epileps').textContent = 'Наверни говнеца!';
+    }
     let randColor = randfive();
     document.body.style.transition = '0.2s';
+    
     switch (randColor){
         case 0:
             document.body.style.backgroundColor = 'red';
@@ -44,11 +38,11 @@ let timer2;
 let shitCount = 0;
 
 function startEpileps() {
+    console.log(123)
     timer2 = setInterval(() => ebatColor(), 200)
     countEpileps = 1;
     document.getElementById('epileps').textContent = 'Остановить дискотеку';
     shitCount++;
-    shitCount;
 }
 
 function stopEpileps() {
@@ -72,9 +66,8 @@ function checkCountEpileps() {
 }
 
 function surprise() {
-    if (shitCount === 10) {
+    if (shitCount % 10 === 0) {
         document.getElementById('epileps').textContent = 'Наверни говнеца!';
-        shitCount = 0;
     }
 }
 
