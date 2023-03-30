@@ -27,8 +27,17 @@ function renderCityList(){
     }
 }
 
-function addFavouriteCity(cityName) {
-    cityList.add(cityName);
+function addFavouriteCity() {
+    cityList.add(document.getElementById('nowCity').innerText);
+    const array = [...cityList.values()];
+    const json = JSON.stringify(array);
+    localStorage.setItem('favouriteList', json);
+    renderCityList();
+}
+
+function AddFavouriteCity() {
+    this.cityName = `${document.getElementById('nowCity').innerText}`;
+    cityList.add(this.cityName);
     const array = [...cityList.values()];
     const json = JSON.stringify(array);
     localStorage.setItem('favouriteList', json);
