@@ -27,9 +27,8 @@ function renderCityList(){
     }
 }
 
-function addFavouriteCity() {
-    const city = document.getElementById('nowCity').innerText
-    cityList.add(city);
+function addFavouriteCity(cityName) {
+    cityList.add(cityName);
     const array = [...cityList.values()];
     const json = JSON.stringify(array);
     localStorage.setItem('favouriteList', json);
@@ -61,6 +60,10 @@ function renderFavouriteCity(city) {
 
 function deleteFavouriteCity(cityName) {
     cityList.delete(cityName);
+    localStorage.clear();
+    const array = [...cityList.values()];
+    const json = JSON.stringify(array);
+    localStorage.setItem('favouriteList', json);
     renderCityList();
 }
 
