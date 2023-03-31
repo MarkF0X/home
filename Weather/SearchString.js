@@ -48,7 +48,7 @@ async function getMainCityInf(cityName) {
 
 function gotNowWeather(cityName, json) {
     const Temperature = document.getElementById('nowTemperature');
-    Temperature.innerHTML = `<h1>${temperatureConverter(json.main.temp)}°</h1>`;
+    Temperature.innerHTML = `<div><h1>${temperatureConverter(json.main.temp)}°</h1></div><div id="date">${new Date().getDate()} ${mounth[new Date().getMonth()]}</div>`;
 
     const Weather = document.getElementById('nowWeather');
     const picCode = json.weather[0].icon;
