@@ -22,9 +22,23 @@ function renderCityList(){
 
     target.insertAdjacentElement('beforeend', newCityList);
 
-    for (const [city] of cityList.entries()) {
-        renderFavouriteCity(city)
+    // for (const [city] of cityList.entries()) {
+    //     renderFavouriteCity(city)
+    // }
+
+    recursRenderFavCityList();
+}
+
+let setCount = 0;
+function recursRenderFavCityList() {
+    if (setCount === cityList.size) {
+        setCount = 0;
+        return;
     }
+    setCount++;
+    let arrCityList = Array.from(cityList);
+    renderFavouriteCity(arrCityList[setCount-1]);
+    recursRenderFavCityList();
 }
 
 function addFavouriteCity() {

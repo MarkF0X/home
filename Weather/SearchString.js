@@ -38,10 +38,25 @@ async function getMainCityInf(cityName) {
             getForecast();
             saveDefaultCity(cityName);
         } else {
-            alert(`${cityName} не нашёлся...`);
+            throw new notFoundCity(`${cityName} not found!`);
+            // alert(`${cityName} не нашёлся...`);
         }
     } catch (err) {
-        alert(`Ошибка HTTP: ${err.toString()}`);
+        alert(`${err.toString()}`);
+    }
+}
+
+class notFoundCity extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "notFoundCity";
+    }
+}
+
+class HttpErr extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "HttpError";
     }
 }
 
