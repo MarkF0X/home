@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <meta charset="UTF-8">
+    <title>Чатик</title>
+    <script src="SendMsg.js"></script>
+</head>
+<body>
+<div id="main" class="main">
+    <div id="buttons" class="wrap justify-between">
+      <div id="settings" class="container button">Настройки</div>
+      <div id="exit" class="container button">Выход</div>
+    </div>
+      <div id="dialog-window" class="container dialog-box">
+        <div class="sent-message">
+            <div class="text-message">сообщение 1</div>
+            <div class="time">18:12</div>
+        </div>
+        <div class="received-message">
+            <div class="text-message">Это второе сообщение значительно длиннее первых, поэтому оно уже с трудом умещается в одну строку. Посмотрим, как будет вести себя див, когда текста настоллько много</div>
+            <div class="time">18:13</div>
+        </div>
+        <div class="sent-message">
+            <div class="text-message">сообщение 3</div>
+            <div class="time">18:15</div>
+        </div>
+      </div>
+        <div id="new-message-box" class="wrap justify-between">
+            <form onsubmit="sentMessage(); return false" style="width: 100%">
+                <input id="text-area" value="сообщение"  class="container" style="width: 88%">
+                <button type="button" class="sent-message container" onclick="sentMessage()">=></button>
+            </form>
+<!--            <div id="input-box" class="container" style="max-width: 90%; min-width: 85%">-->
+<!--                <input id="text-area" value="сообщение" class="input-box">-->
+<!--            </div>-->
+<!--          <div class="container send-button" onclick="sentMessage()">-></div>-->
+        </div>
+<!--    <div class="b-popup main">-->
+<!--        <div class="b-popup-content">-->
+<!--            <div class="wrap justify-between space">-->
+<!--                <div>Настройки</div>-->
+<!--                <div>x</div>-->
+<!--            </div>-->
+<!--            <div>-->
+<!--                <div style="margin-left: 15px">-->
+<!--                    Имя в чате:-->
+<!--                </div>-->
+<!--                <div class="wrap justify-between space">-->
+<!--                    <div class="container" style="max-width: 79%; min-width: 70%">-->
+<!--                        <input class="input-box" style="max-width: 90%; min-width: 85%">-->
+<!--                    </div>-->
+<!--                    <div class="container send-button">-></div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <template id="template-sent-message">
+
+            <div class="text-message"></div>
+            <div class="time"></div>
+
+    </template>
+</div>
+
+</body>
+</html>
