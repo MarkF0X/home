@@ -1,33 +1,26 @@
 // import {saveDefaultCity} from './LocalSaver.js';
 // import {getForecast} from "./forecast";
 
-function saveDefaultCity(cityName) {
-    localStorage.setItem('defaultCity', cityName);
-    const target = document.getElementById('cityName');
-    target.setAttribute('value', cityName);
+const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+function saveDefaultCityCookie(cityName) {
+    let nameCookie = 'defaultCity';
+    // let valueCookie = cityName;
+    document.cookie = encodeURIComponent(nameCookie) + '=' + encodeURIComponent(cityName) + `; path=/; max-age=${10}`;
+    // const target = document.getElementById('cityName');
+    // target.setAttribute('value', cityName);
 }
+
+function getCookie(name) {
+    let matches = document.cookie.match(new RegExp(
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    ));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+
 async function getMainCityInf(cityName) {
     const serverUrl = 'https://api.openweathermap.org/data/2.5/weather';
     const apiKey = '305a0d4b0f32e7ec248cac16dabc5ec8';
     const url = `${serverUrl}?q=${cityName}&appid=${apiKey}`;
-    // fetch(url)
-    //     .then((response) => {
-    //         if (response.ok) {
-    //             const json = response.json()
-    //                 .then(() => {
-    //                     gotNowWeather(cityName, json);
-    //                     gotDetails(cityName, json);
-    //                 })
-    //                 .catch((err) => {
-    //                     alert(`Ты инвалид`)
-    //                 });
-    //         } else {
-    //             alert(`${cityName} не нашёлся...`);
-    //         }
-    //     })
-    //     .catch((err) => {
-    //         alert(`Ошибка HTTP: ${err.toString()}`);
-    //     });
     try {
         const response = await fetch(url);
         if (response.ok) {
@@ -36,7 +29,10 @@ async function getMainCityInf(cityName) {
             gotNowWeather(cityName, json);
             gotDetails(cityName, json);
             getForecast();
-            saveDefaultCity(cityName);
+            // saveDefaultCity(cityName);
+            saveDefaultCityCookie(cityName);
+            const target = document.getElementById('cityName');
+            target.setAttribute('value', cityName);
         } else {
             throw new notFoundCity(`${cityName} not found!`);
             // alert(`${cityName} не нашёлся...`);
@@ -63,7 +59,7 @@ class HttpErr extends Error {
 
 function gotNowWeather(cityName, json) {
     const Temperature = document.getElementById('nowTemperature');
-    Temperature.innerHTML = `<div><h1>${temperatureConverter(json.main.temp)}°</h1></div><div id="date">${new Date().getDate()} ${mounth[new Date().getMonth()]}</div>`;
+    Temperature.innerHTML = `<div><h1>${temperatureConverter(json.main.temp)}°</h1></div><div id="date">${new Date().getDate()} ${month[new Date().getMonth()]}</div>`;
 
     const Weather = document.getElementById('nowWeather');
     const picCode = json.weather[0].icon;
@@ -92,11 +88,13 @@ function temperatureConverter(celvinTemperature) {
     return actualTemperature.toFixed(0);
 }
 
-const defaultSaveCity = localStorage.getItem('defaultCity');
-if (!defaultSaveCity) {
-    localStorage.setItem('defaultCity', 'Moscow');
-}
-getMainCityInf(localStorage.getItem('defaultCity'));
+
+// let getDefaultWeather = getCookie('defaultCity') ?? 'Moscow';
+// // const defaultSaveCity = 'Moscow';
+// if (getCookie('defaultCity') === undefined) {
+    saveDefaultCityCookie(getCookie('defaultCity') ?? 'Nizhniy Novgorod');
+// }
+getMainCityInf(getCookie('defaultCity'));
 
 async function getForecast() {
     const cityName = document.getElementById('nowCity').innerText;
@@ -128,7 +126,7 @@ function createForecastList(json) {
         forecastTab.insertAdjacentHTML('afterbegin', `
             <div class="wrap justify-between">
                 <div class="max-available" >
-                    <div>${date.getDate()} ${mounth[date.getMonth()]}</div>
+                    <div>${date.getDate()} ${month[date.getMonth()]}</div>
                     <div>Temperature: ${temperatureConverter(elem.main.temp)}°</div>
                     <div>Feels like: ${temperatureConverter(elem.main.feels_like)}°</div>
                 </div>
@@ -148,4 +146,3 @@ function createForecastList(json) {
 
 }
 
-const mounth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
