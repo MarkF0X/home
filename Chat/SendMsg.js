@@ -1,4 +1,7 @@
 function sentMessage() {
+    if (!document.getElementById("text-area").value) {
+        return;
+    }
     const dialog = document.getElementById('dialog-window');
 
     let newSentMessage = document.createElement('div');

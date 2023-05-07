@@ -5,6 +5,14 @@
     <meta charset="UTF-8">
     <title>Чатик</title>
     <script src="SendMsg.js"></script>
+    <script src="authorization.js"></script>
+    <script type="module" src="auth-logic.js"></script>
+    <script src="confirm-logic.js"></script>
+    <script type="module" src="enterChat.js"></script>
+    <script type="module" src="saveHash.js"></script>
+    <script type="module" src="storage.js"></script>
+    <script src="backToConfirm.js"></script>
+    <script type="module" src="patchName.js"></script>
 </head>
 <body>
 <div id="main" class="main">
@@ -13,48 +21,85 @@
       <div id="exit" class="container button">Выход</div>
     </div>
       <div id="dialog-window" class="container dialog-box">
-        <div class="sent-message">
-            <div class="text-message">сообщение 1</div>
-            <div class="time">18:12</div>
-        </div>
-        <div class="received-message">
-            <div class="text-message">Это второе сообщение значительно длиннее первых, поэтому оно уже с трудом умещается в одну строку. Посмотрим, как будет вести себя див, когда текста настоллько много</div>
-            <div class="time">18:13</div>
-        </div>
-        <div class="sent-message">
-            <div class="text-message">сообщение 3</div>
-            <div class="time">18:15</div>
-        </div>
       </div>
         <div id="new-message-box" class="wrap justify-between">
             <form onsubmit="sentMessage(); return false" style="width: 100%">
-                <input id="text-area" value="сообщение"  class="container" style="width: 88%">
-                <button type="button" class="sent-message container" onclick="sentMessage()">=></button>
+                <input id="text-area" value="сообщение"  class="container" style="min-width: 86%">
+                <button type="button" class="sent-message container" onclick="sentMessage()" style="position: absolute">=></button>
             </form>
-<!--            <div id="input-box" class="container" style="max-width: 90%; min-width: 85%">-->
-<!--                <input id="text-area" value="сообщение" class="input-box">-->
-<!--            </div>-->
-<!--          <div class="container send-button" onclick="sentMessage()">-></div>-->
         </div>
-<!--    <div class="b-popup main">-->
-<!--        <div class="b-popup-content">-->
-<!--            <div class="wrap justify-between space">-->
-<!--                <div>Настройки</div>-->
-<!--                <div>x</div>-->
-<!--            </div>-->
-<!--            <div>-->
-<!--                <div style="margin-left: 15px">-->
-<!--                    Имя в чате:-->
-<!--                </div>-->
-<!--                <div class="wrap justify-between space">-->
-<!--                    <div class="container" style="max-width: 79%; min-width: 70%">-->
-<!--                        <input class="input-box" style="max-width: 90%; min-width: 85%">-->
-<!--                    </div>-->
-<!--                    <div class="container send-button">-></div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
+    <template id="chat-settings-template">
+        <div class="b-popup main">
+            <div class="b-popup-content">
+                <div class="wrap justify-between space">
+                    <div>Настройки</div>
+                    <div class="button" style="width: 20px">x</div>
+                </div>
+                <div>
+                    <div style="margin-left: 15px">
+                        Имя в чате:
+                    </div>
+                    <div class="wrap justify-between">
+                        <div class="container" style="max-width: 79%; min-width: 70%">
+                            <input id='name-area' class="input-box" style="max-width: 90%; min-width: 85%">
+                        </div>
+                        <div class="container send-button" onclick="patchName()">-></div>
+                    </div>
+                    <div class="container send-button" style="width: 80px" onclick="backToConfirm()">Назад</div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="authorization-template">
+        <div class="b-popup main">
+            <div class="b-popup-content">
+                <div class="wrap justify-between space">
+                    <div>Авторизация</div>
+                    <div class="button" style="width: 20px">x</div>
+                </div>
+                <div>
+                    <div style="margin-left: 15px">
+                        Почта:
+                    </div>
+                    <div>
+                        <div class="container" style="max-width: 100%">
+                            <input id="email" class="input-box" style="max-width: 90%">
+                        </div>
+                        <div class="wrap justify-between">
+                            <div class="container wrap button" style="width: 100px" onclick="authorization()">Получить код</div>
+                            <div class="container wrap button" style="width: 100px" onclick="enterCode()">Ввести код</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="confirm-template">
+        <div class="b-popup main">
+            <div class="b-popup-content">
+                <div class="wrap justify-between space">
+                    <div>Подтверждение</div>
+                    <div class="button" style="width: 20px">x</div>
+                </div>
+                <div>
+                    <div style="margin-left: 15px">
+                        Код:
+                    </div>
+                    <div>
+                        <div class="container" style="max-width: 100%">
+                            <input id="hash-area" class="input-box" style="max-width: 90%">
+                        </div>
+                        <div class="wrap justify-between">
+                            <div class="container wrap button" onclick="preview()">Назад</div>
+                            <div class="container wrap button" onclick="saveHash()">Войти</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
 
     <template id="template-sent-message">
 

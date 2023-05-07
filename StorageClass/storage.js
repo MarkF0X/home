@@ -85,7 +85,3 @@ class Storage {
         }
     }
 }
-
-const names = new Storage('names').set(1);
-const names1 = new Storage('names1');
-const names2 = new Storage('names2');
