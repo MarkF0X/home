@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="style.css" type="text/css">
     <meta charset="UTF-8">
     <title>Чатик</title>
-    <script src="SendMsg.js"></script>
+    <script type="module" src="renderMsg.js"></script>
     <script src="authorization.js"></script>
     <script type="module" src="auth-logic.js"></script>
     <script src="confirm-logic.js"></script>
@@ -13,27 +13,31 @@
     <script type="module" src="storage.js"></script>
     <script src="backToConfirm.js"></script>
     <script type="module" src="patchName.js"></script>
+    <script type="module" src="getHistory.js"></script>
+    <script type="module" src="scrollBottom.js"></script>
+    <script type="module" src="Socket.js"></script>
+    <script src="closePopUp.js"></script>
 </head>
 <body>
 <div id="main" class="main">
     <div id="buttons" class="wrap justify-between">
-      <div id="settings" class="container button">Настройки</div>
+      <div id="settings" class="container button" onclick="enterName(1)">Настройки</div>
       <div id="exit" class="container button">Выход</div>
     </div>
       <div id="dialog-window" class="container dialog-box">
       </div>
         <div id="new-message-box" class="wrap justify-between">
-            <form onsubmit="sentMessage(); return false" style="width: 100%">
-                <input id="text-area" value="сообщение"  class="container" style="min-width: 86%">
-                <button type="button" class="sent-message container" onclick="sentMessage()" style="position: absolute">=></button>
+            <form onsubmit="exchangeMsg(); return false" name='myForm' style="width: 100%">
+                <input id="text-area" placeholder="ваше сообщение..." class="container" style="min-width: 86%">
+                <button type="button" class="sent-message container" onclick="exchangeMsg()" style="position: absolute; cursor: pointer">=></button>
             </form>
         </div>
     <template id="chat-settings-template">
-        <div class="b-popup main">
+        <div id='settPopUp' class="b-popup main">
             <div class="b-popup-content">
                 <div class="wrap justify-between space">
                     <div>Настройки</div>
-                    <div class="button" style="width: 20px">x</div>
+                    <div class="button" style="width: 20px" onclick="closePopUp('settPopUp')">x</div>
                 </div>
                 <div>
                     <div style="margin-left: 15px">
@@ -52,11 +56,10 @@
     </template>
 
     <template id="authorization-template">
-        <div class="b-popup main">
+        <div id='AutPopUp' class="b-popup">
             <div class="b-popup-content">
                 <div class="wrap justify-between space">
                     <div>Авторизация</div>
-                    <div class="button" style="width: 20px">x</div>
                 </div>
                 <div>
                     <div style="margin-left: 15px">
@@ -77,11 +80,10 @@
     </template>
 
     <template id="confirm-template">
-        <div class="b-popup main">
+        <div id='confPopUp' class="b-popup main">
             <div class="b-popup-content">
                 <div class="wrap justify-between space">
                     <div>Подтверждение</div>
-                    <div class="button" style="width: 20px">x</div>
                 </div>
                 <div>
                     <div style="margin-left: 15px">
@@ -106,6 +108,12 @@
             <div class="text-message"></div>
             <div class="time"></div>
 
+    </template>
+
+    <template id="template-received-message">
+         <div class="author"></div>
+            <div class="text-message"></div>
+            <div class="time"></div>
     </template>
 </div>
 

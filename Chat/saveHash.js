@@ -9,7 +9,7 @@ function saveHash() {
     changeToken(hashString);
     const chatHash = new Coockie('hash-chat', hashString);
     enterName();
-    tempCoockie = chatHash;
+    tempCoockie = hashString;
     console.log(chatHash.get());
     getName();
 }

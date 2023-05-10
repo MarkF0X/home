@@ -35,9 +35,8 @@
 }
 
 .main {
-    min-width: 300px;
-    max-width: 500px;
-    height: 1000px;
+    width: 500px;
+    height: 700px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -53,28 +52,34 @@
 }
 
 .sent-message {
+    padding-right: 5px;
     max-width: 90%;
     margin-right: 5px;
     margin-left: auto;
     margin-top: 5px;
+    margin-bottom: 5px;
     background-color: #cccccc;
 
 }
 
 .received-message {
+    padding-left: 5px;
     max-width: 90%;
     margin: 5px;
     background-color: #cccccc;
+    width: 100%;
 }
 
 .dialog-box {
-    min-height: 700px;
-    max-height: 700px;
-    overflow: auto;
+    height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 460px;
     /*padding-top: 50%;*/
 }
 
 .time {
+    padding-right: 3px;
     text-align: right;
     color: dimgray;
     font-size: 12px;
@@ -82,7 +87,7 @@
 }
 
 .b-popup{
-    width:100%;
+    width:500px;
     height: 2000px;
     background-color: rgba(0,0,0,0.5);
     overflow:hidden;
@@ -91,7 +96,7 @@
 }
 .b-popup .b-popup-content{
     margin:40px auto 0px auto;
-    width: 60%;
+    width: 300px;
     height: 300px;
     padding:10px;
     background-color: #ffffff;
@@ -103,4 +108,13 @@
     margin-bottom: 50px;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.author {
+    text-align: left;
+    color: dimgrey;
+    font-size: 15px;
+    font-style: italic;
+    font-weight: bold;
+    padding-left: 5px;
 }

@@ -1,6 +1,5 @@
-import Coockie from "./storage.js";
 import {changeToken} from "./getName.js";
-
+import {getHistory} from "./getHistory.js";
 
 function startDisplay() {
     const mainDiv = document.getElementById('main');
@@ -11,7 +10,7 @@ function startDisplay() {
     mainDiv.append(newPopUp);
 }
 
-function getCookie(name) {
+export function getCookie(name) {
     let matches = document.cookie.match(new RegExp(
         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
     ));
@@ -19,7 +18,10 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 let hash = getCookie('hash-chat');
+
 if (!hash) {
     changeToken(null);
     document.addEventListener('DOMContentLoaded', startDisplay);
+} else {
+    getHistory();
 }

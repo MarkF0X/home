@@ -1,5 +1,4 @@
-import {token} from "./getName";
-import {getName} from "./getName.js";
+import {token, getName} from "./getName.js";
 
 function patchName() {
     const serverUrl = 'https://edu.strada.one/api/user';

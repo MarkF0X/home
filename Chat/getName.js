@@ -1,7 +1,8 @@
+import {getCookie} from "./auth-logic.js";
 
-let token;
+let token = getCookie('hash-chat');
 
-function getName() {
+export function getName() {
     const serverUrl = 'https://edu.strada.one/api/user/me';
 
     fetch(serverUrl, {
@@ -18,4 +19,4 @@ function getName() {
 function changeToken(value) {
     token = value;
 }
-export {changeToken, token, getName};
+export {changeToken, token};
