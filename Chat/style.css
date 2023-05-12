@@ -70,6 +70,14 @@
     width: 100%;
 }
 
+.message {
+    border-radius: 3px;
+}
+
+.over-dialog {
+    text-align: center;
+}
+
 .dialog-box {
     height: 700px;
     overflow-y: auto;

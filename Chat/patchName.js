@@ -1,4 +1,5 @@
 import {token, getName} from "./getName.js";
+import {closePopUp} from "./closePopUp.js";
 
 function patchName() {
     const serverUrl = 'https://edu.strada.one/api/user';
@@ -14,6 +15,7 @@ function patchName() {
     }).then(response => console.log(response))
         .catch(err => alert(err.toString()));
     getName();
+    closePopUp();
 }
 
 window.patchName = patchName;
