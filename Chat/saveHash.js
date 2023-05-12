@@ -8,7 +8,7 @@ function saveHash() {
     const hashString = document.getElementById('hash-area').value;
     changeToken(hashString);
     const chatHash = new Coockie('hash-chat', hashString);
-    enterName();
+    enterName(1);
     tempCoockie = hashString;
     console.log(chatHash.get());
     getName();

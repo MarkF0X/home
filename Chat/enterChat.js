@@ -1,5 +1,5 @@
 function enterName(option) {
-    if (option) {
+    if (option === 1) {
         const authWindow = document.getElementById('confirm-pop-up');
         authWindow.remove();
     }
