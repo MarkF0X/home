@@ -9,7 +9,7 @@ dialog.addEventListener('scroll', () => {
 
     let elemScroll = dialog.scrollTop;
     let space;
-    if (elemScroll === 0) {
+    if (elemScroll < 150) {
         const itemsToShow = 20;
 
         const startIndex = dialog.querySelectorAll('.message').length;

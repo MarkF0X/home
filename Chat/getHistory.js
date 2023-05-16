@@ -19,9 +19,7 @@ function getHistory() {
     }).then(response => response.json())
         .then(body => {
             for (let i = body.messages.length - 1; i >= 0; i--) {
-                // const time = `${new Date(body.messages[i].createdAt).getDate()} ${month[new Date(body.messages[i].createdAt).getMonth()]} ${new Date(body.messages[i].createdAt).getHours()}:${new Date(body.messages[i].createdAt).getMinutes()}`;
                 msgArr.unshift(body.messages[i]);
-                // renderMsg(body.messages[i].text, time, body.messages[i].user.name, body.messages[i].user.email);
             }
             history = msgArr;
             console.log(history);
